@@ -3,17 +3,22 @@ import './App.css'
 import SignUp from './page/SignUp'
 import Login from './page/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
+import Dashboard from './page/Dashboard'
+import useAuth from './hooks/useAuth'
+import AuthProtectRoute from './components/AuthProtectRoute'
 
 function App() {
-
+  useAuth()
+  
   return (
     <>
       <ToastContainer /> 
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<h1>Home</h1>} />
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<SignUp/>}/>
+          <Route path='/' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+          <Route path='/login' element={<AuthProtectRoute> <Login/> </AuthProtectRoute>}/>
+          <Route path='/signup' element={<AuthProtectRoute> <SignUp/> </AuthProtectRoute>}/>
         </Routes>
       </BrowserRouter>
     </>

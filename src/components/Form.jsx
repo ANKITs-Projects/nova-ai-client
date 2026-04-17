@@ -3,13 +3,15 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const Form = ({ formType, submitForm, authMode }) => {
+const Form = ({ formType, loading, submitForm, authMode }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confurmPassword, setConfurmPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [showCpass, setShowCpass] = useState(false);
+
+  const formBtnText = !loading ? formType : formType === "SignUp" ? "Creating account..." : "Logging in..." 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -125,7 +127,7 @@ const Form = ({ formType, submitForm, authMode }) => {
             <button
             type="submit"
             className="py-1 px-4 bg-blue-600 text-white font-medium rounded-2xl hover:bg-blue-800 cursor-pointer">
-              {formType}
+              {formBtnText}
             </button>
           </div>
         </div>
