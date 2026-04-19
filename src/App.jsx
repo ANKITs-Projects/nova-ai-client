@@ -3,10 +3,10 @@ import "./App.css";
 import SignUp from "./page/SignUp";
 import Login from "./page/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/route_protection/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import useAuth from "./hooks/useAuth";
-import AuthProtectRoute from "./components/AuthProtectRoute";
+import AuthProtectRoute from "./components/route_protection/AuthProtectRoute";
 
 function App() {
   useAuth();

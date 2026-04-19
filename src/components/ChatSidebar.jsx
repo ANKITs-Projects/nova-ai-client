@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { GoSidebarExpand } from "react-icons/go";
 import { BsChatDotsFill } from "react-icons/bs";
 import logo from "../assets/novaAi.ico";
-import ProjectSidebar from "./ProjectSidebar";
-import GeneralChatSidebar from "./GeneralChatSidebar";
+import ProjectSidebar from "./project_sidebar/ProjectSidebar";
+import GeneralChatSidebar from "./general-chat-sidebar/GeneralChatSidebar";
 
 const ChatSidebar = () => {
 

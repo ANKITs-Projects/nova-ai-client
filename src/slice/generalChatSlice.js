@@ -1,0 +1,27 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { setError, setLoading } from "../slice/userSlice";
+
+
+const generalChatSlice = createSlice({
+    name : "General chat",
+    initialState: {
+        loading: true,
+        error: null,
+        chats: []
+    },
+
+    reducers: {
+        setChats: (state, action) => {
+            state.chats = [...state.chats, ...action.payload]
+        },
+        setChatLoading: (state, action) => {
+            state.loading = action.payload
+        },
+        setChatError: (state, action) => {
+            state.error = action.payload
+        }
+    }
+})
+
+export const {setChats, setChatLoading, setChatError} = generalChatSlice.actions;
+export default generalChatSlice.reducer;
