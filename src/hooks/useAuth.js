@@ -5,12 +5,12 @@ import { getUserProfile } from "../api/auth.api";
 
 const useAuth = () => {
     const dispatch = useDispatch();
+
   useEffect(() => {
     const initAuth = async () => {
       dispatch(setLoading(true));
       try {
         const res = await getUserProfile();
-        console.log(res)
         dispatch(setUser(res.data.user));
       } catch (err) {
         dispatch(setError(err.message));
