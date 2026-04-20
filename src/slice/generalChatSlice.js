@@ -12,6 +12,9 @@ const generalChatSlice = createSlice({
 
     reducers: {
         setChats: (state, action) => {
+            state.chats = action.payload
+        },
+        pushChats: (state, action) => {
             state.chats = [...state.chats, ...action.payload]
         },
         setChatLoading: (state, action) => {
@@ -23,5 +26,5 @@ const generalChatSlice = createSlice({
     }
 })
 
-export const {setChats, setChatLoading, setChatError} = generalChatSlice.actions;
+export const {setChats, pushChats, setChatLoading, setChatError} = generalChatSlice.actions;
 export default generalChatSlice.reducer;

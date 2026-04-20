@@ -5,7 +5,6 @@ import { getAllChat } from "../api/chat.api"
 
 const useGetAllChat = () => {
     const dispatch = useDispatch()
-    const fetchRef = useRef(true)
 
     const fetchAllChat = async () => {
         dispatch(setChatLoading(true))
@@ -19,13 +18,7 @@ const useGetAllChat = () => {
         }
     }
 
-    useEffect(() => {
-        
-        if(fetchRef.current)
-            fetchAllChat()
-
-        fetchRef.current = false
-    }, [])
+    return fetchAllChat
 };
 
 export default useGetAllChat

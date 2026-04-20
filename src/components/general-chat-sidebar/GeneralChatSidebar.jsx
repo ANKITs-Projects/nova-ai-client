@@ -4,12 +4,17 @@ import { LuFolderPen } from "react-icons/lu";
 import { LuFolderClosed } from "react-icons/lu";
 import useGetAllChat from "../../hooks/useGetAllChat";
 import { useSelector } from "react-redux";
+import { UseGetMessagesByChatId } from "../../hooks/useGetMessages";
 
 const GeneralChatSidebar = () => {
-  const [showGeneratChats, setShowGeneralProject] = useState(false);
+  const [showGeneratChats, setShowGeneralProject] = useState(true);
   const { loading, error, chats } = useSelector((store) => store.generalChat);
+  const fetchMessages = UseGetMessagesByChatId()
 
-  useEffect(() => {}, []);
+
+  const handleChatClick =  (chatId) => {
+    fetchMessages(chatId)
+  }
 
   return (
     <div className="w-full h-full p-1 rounded-xl flex flex-col items-center">
@@ -24,7 +29,7 @@ const GeneralChatSidebar = () => {
       </p>
       {showGeneratChats && (
         <div className="w-full max-h-full overflow-auto scrollbar-hover">
-          {loading && <div className="loader"></div>}
+          {loading && <div className="loader p-1.5"></div>}
           {error && <div>{error}</div>}
           {chats.length > 0 &&
             chats.map((ele, i) => {
@@ -32,6 +37,7 @@ const GeneralChatSidebar = () => {
                 <div
                   className="w-full flex justify-between items-center"
                   key={ele._id}
+                  onClick={()=>handleChatClick(ele._id)}
                 >
                   <button className="w-full p-1.5 text-sm font-light capitalize rounded-xl flex items-center gap-1 cursor-pointer hover:bg-(--bgHover)">
                     {ele.title}

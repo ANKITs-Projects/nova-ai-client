@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ChatSidebar from '../components/ChatSidebar'
 import ChatArea from '../components/ChatArea'
 import useGetAllChat from '../hooks/useGetAllChat';
+import useGetAllProjects from '../hooks/useGetAllProjects';
 
 const Dashboard = () => {
+  const fetchAllChat = useGetAllChat();
+  const fetchAllProjects = useGetAllProjects()
+
+
+  useEffect(() => {
+    fetchAllChat()
+    fetchAllProjects()
+  }, [])
+
   
-  useGetAllChat();
   return (
     <div className='h-screen w-screen bg-[#212121] text-zinc-100 flex overflow-hidden'>
       <div className='w-[17%]'>

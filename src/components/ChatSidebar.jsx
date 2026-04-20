@@ -4,6 +4,7 @@ import { BsChatDotsFill } from "react-icons/bs";
 import logo from "../assets/novaAi.ico";
 import ProjectSidebar from "./project_sidebar/ProjectSidebar";
 import GeneralChatSidebar from "./general-chat-sidebar/GeneralChatSidebar";
+import UserProfile from "./UserProfile";
 
 const ChatSidebar = () => {
 
@@ -32,7 +33,9 @@ const ChatSidebar = () => {
         <GeneralChatSidebar />
       </div>
 
-      <div></div>
+      <div className="w-full max-h-25">
+        <UserProfile />
+      </div>
     </div>
   );
 };
