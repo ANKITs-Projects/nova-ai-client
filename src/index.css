@@ -44,6 +44,10 @@ input:-webkit-autofill:active {
   width: 6px;
 }
 
+.noscrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
 :root {
   --bgHover : #3d3a3aec;
 

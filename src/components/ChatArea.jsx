@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Textarea from "./chat-area/InputField";
+import InputField from "./chat-area/InputField";
 import { UseGetMessagesByChatId } from "../hooks/useGetMessages";
 import useGetAllProjects from "../hooks/useGetAllProjects";
 import useGetAllProjectChat from "../hooks/useGetAllProjectsChat";
+import Chats from "./chat-area/chats";
+import Projects from "./chat-area/Projects";
 
 const ChatArea = () => {
   const fetchMessages = UseGetMessagesByChatId();
@@ -42,13 +44,25 @@ const ChatArea = () => {
         <div className="text-3xl ">
           <h1>What are you working on?</h1>
         </div>
-        <Textarea />
+        <InputField />
       </div>
     );
   }
 
   if (isChat) {
-    return <h1>Hello</h1>;
+    return (
+      <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
+          <Chats />
+      </div>
+    )
+  }
+
+  if (isProject) {
+    return (
+      <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
+          <Projects />
+      </div>
+    )
   }
 };
 

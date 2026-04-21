@@ -6,15 +6,15 @@ const projectChatSlice = createSlice({
     initialState: {
         loading: true,
         error: null,
-        chats: []
+        projectschat: []
     },
 
     reducers: {
         setProjectChats: (state, action) => {
-            state.chats = action.payload
+            state.projectschat = action.payload
         },
         pushProjectChats: (state, action) => {
-            state.chats = [...state.chats, ...action.payload]
+            state.projectschat = [...action.payload, ...state.projectschat]
         },
         setProjectChatLoading: (state, action) => {
             state.loading = action.payload
