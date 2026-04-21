@@ -17,7 +17,7 @@ export const getAllProjects = async () => {
 export const getProjectsChat = async (projectId) => {
     try {
         const res = await axioInstance(`/project/${projectId}`)
-        console.log("project chat api :- ", res)
+        
         if(!res.data.success)
             throw new Error(res.data.message)
 

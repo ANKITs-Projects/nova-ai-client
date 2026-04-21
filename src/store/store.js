@@ -4,6 +4,7 @@ import generalChatReducer from "./../slice/generalChatSlice"
 import messageReducer from "../slice/messageSlice"
 import projectReducer from "../slice/projectSlice"
 import projectChatReducer from "../slice/projectChatSlice"
+import chatProjectDetailReducer from "../slice/chatProjectDetailSlice"
 
 const store = configureStore({
     reducer : {
@@ -11,7 +12,8 @@ const store = configureStore({
         generalChat: generalChatReducer,
         message: messageReducer,
         project: projectReducer,
-        projectChats: projectChatReducer
+        projectChats: projectChatReducer,
+        chatProjectDetail: chatProjectDetailReducer
     }
 })
 
