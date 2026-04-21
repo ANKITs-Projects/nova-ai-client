@@ -20,7 +20,7 @@ const Dashboard = () => {
       <div className='w-[17%]'>
         <ChatSidebar />
       </div>
-      <div className='flex-1'>
+      <div className='max-h-full flex-1'>
         <ChatArea />
       </div>
     </div>

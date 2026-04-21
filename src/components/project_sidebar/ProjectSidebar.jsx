@@ -3,12 +3,14 @@ import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { LuFolderPen } from "react-icons/lu";
 import { LuFolderClosed } from "react-icons/lu";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const ProjectSidebar = () => {
   const [showProject, setShowProject] = useState(true);
   const { loading, error, projects } = useSelector((store) => store.project);
+  const navigate = useNavigate()
 
   const handleProjectClick =  (projectId) => {
-    console.log(projectId)
+    navigate(`/p/${projectId}`);
   }
 
   return (

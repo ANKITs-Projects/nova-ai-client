@@ -12,4 +12,17 @@ export const getAllProjects = async () => {
     } catch (error) {
         throw new Error(error.response?.data?.message || error.message)
     }
+
+}
+export const getProjectsChat = async (projectId) => {
+    try {
+        const res = await axioInstance(`/project/${projectId}`)
+        console.log("project chat api :- ", res)
+        if(!res.data.success)
+            throw new Error(res.data.message)
+
+        return res.data.data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || error.message)
+    }
 }

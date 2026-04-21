@@ -5,15 +5,17 @@ import { LuFolderClosed } from "react-icons/lu";
 import useGetAllChat from "../../hooks/useGetAllChat";
 import { useSelector } from "react-redux";
 import { UseGetMessagesByChatId } from "../../hooks/useGetMessages";
+import { useNavigate } from "react-router-dom";
 
 const GeneralChatSidebar = () => {
   const [showGeneratChats, setShowGeneralProject] = useState(true);
   const { loading, error, chats } = useSelector((store) => store.generalChat);
+  const navigate = useNavigate()
   const fetchMessages = UseGetMessagesByChatId()
 
 
   const handleChatClick =  (chatId) => {
-    fetchMessages(chatId)
+    navigate(`/c/${chatId}`);
   }
 
   return (

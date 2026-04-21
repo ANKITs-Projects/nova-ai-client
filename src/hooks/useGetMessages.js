@@ -9,7 +9,7 @@ export const UseGetMessagesByChatId = () => {
         dispatch(setMessageLoading(true))
         try {
             const res = await getMessages(chatId)
-            console.log("api:- ",res)
+            console.log("use get all message:- ",res)
             dispatch(setMessages(res))
         } catch (error) {
             dispatch(setMessageError(error.message))

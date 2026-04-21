@@ -10,6 +10,7 @@ const useGetAllProjects = () => {
         dispatch(setProjectLoading(true))
         try {
             const res = await getAllProjects()
+            
             dispatch(setProjects(res))
         } catch (error) {
             dispatch(setProjectError(error.message))

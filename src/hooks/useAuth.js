@@ -12,6 +12,7 @@ const useAuth = () => {
       try {
         const res = await getUserProfile();
         dispatch(setUser(res.data.user));
+        dispatch(setError(null));
       } catch (err) {
         dispatch(setError(err.message));
       } finally {
