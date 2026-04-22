@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputField from "./chat-area/InputField";
 import { UseGetMessagesByChatId } from "../hooks/useGetMessages";
@@ -6,13 +6,24 @@ import useGetAllProjects from "../hooks/useGetAllProjects";
 import useGetAllProjectChat from "../hooks/useGetAllProjectsChat";
 import Chats from "./chat-area/chats";
 import Projects from "./chat-area/Projects";
+import useSendGeneralChatMessage from "../hooks/useSendGeneralMessage";
+import { useDispatch } from "react-redux";
+import { pushChats } from "../slice/generalChatSlice";
+import { toast } from "react-toastify";
+import { setMessages } from "../slice/messageSlice";
 
 const ChatArea = () => {
   const fetchMessages = UseGetMessagesByChatId();
   const fetchAllProjectsChat = useGetAllProjectChat();
-  const location = useLocation();
+  const sendGeneralChatMessage = useSendGeneralChatMessage();
 
+  const [chatMessage, setChatMessage] = useState("")
+  const [sendMessage, setSendMessage] = useState(false)
+
+  const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
+
 
   const path = location.pathname.split("/");
   
@@ -50,7 +61,34 @@ const ChatArea = () => {
   }, [path]);
 
 
-  if (isChat) {
+  useEffect(() => {
+  const handleSend = async () => {
+    if (!sendMessage) return;
+
+    if (chatMessage.length === 0) {
+      toast.warn("Message must not empty!");
+      setSendMessage(false);
+      return;
+    }
+
+    try {
+      dispatch(setMessages([]))
+      const chatDetail = await sendGeneralChatMessage(chatMessage);
+      if (chatDetail) {
+        dispatch(pushChats(chatDetail));
+        navigate(`/c/${chatDetail._id}`);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSendMessage(false);
+    }
+  };
+
+  handleSend();
+}, [sendMessage]);
+
+  if (isChat || isProjectChat || sendMessage) {
     return (
       <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
         <Chats />
@@ -58,13 +96,13 @@ const ChatArea = () => {
     );
   }
 
-  if(isProjectChat){
-    return (
-      <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
-        <Chats />
-      </div>
-    );
-  }
+  // if(isProjectChat){
+  //   return (
+  //     <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
+  //       <Chats />
+  //     </div>
+  //   );
+  // }
 
   if (isProject) {
     return (
@@ -74,14 +112,13 @@ const ChatArea = () => {
     );
   }
 
-  
 
   return (
     <div className="w-full h-screen flex flex-col gap-10 items-center justify-center">
       <div className="text-3xl ">
         <h1>What are you working on?</h1>
       </div>
-      <InputField />
+      <InputField setChatMessage = {setChatMessage} setSendMessage = {setSendMessage}/>
     </div>
   );
 };

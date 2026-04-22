@@ -5,8 +5,10 @@ import logo from "../assets/novaAi.ico";
 import ProjectSidebar from "./project_sidebar/ProjectSidebar";
 import GeneralChatSidebar from "./general-chat-sidebar/GeneralChatSidebar";
 import UserProfile from "./UserProfile";
+import { useNavigate } from "react-router-dom";
 
 const ChatSidebar = () => {
+  const navigate = useNavigate()
 
   return (
     <div className="w-full h-screen p-1 bg-[#171717] flex flex-col gap-2 overflow-hidden ">
@@ -20,7 +22,9 @@ const ChatSidebar = () => {
       </div>
 
       <div className="w-full max-h-10 pl-3 flex justify-between items-center">
-        <button className="w-full max-h-10 p-3 rounded-xl flex items-center gap-1.5 cursor-pointer hover:bg-(--bgHover)">
+        <button className="w-full max-h-10 p-3 rounded-xl flex items-center gap-1.5 cursor-pointer hover:bg-(--bgHover)"
+          onClick={()=> navigate("/")}
+        >
           <BsChatDotsFill /> New chat
         </button>
       </div>

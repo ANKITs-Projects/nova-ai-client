@@ -8,10 +8,12 @@ const useGetAllProjects = () => {
 
     const fetchAllProjects = async () => {
         dispatch(setProjectLoading(true))
+        dispatch(setProjects([]))
         try {
             const res = await getAllProjects()
             
             dispatch(setProjects(res))
+            dispatch(setProjectError(null))
         } catch (error) {
             dispatch(setProjectError(error.message))
         } finally {

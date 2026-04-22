@@ -7,9 +7,14 @@ import ProtectedRoute from "./components/route_protection/ProtectedRoute";
 import Dashboard from "./page/Dashboard";
 import useAuth from "./hooks/useAuth";
 import AuthProtectRoute from "./components/route_protection/AuthProtectRoute";
+import { useEffect } from "react";
 
 function App() {
-  useAuth();
+  const fetchUserProfile = useAuth();
+
+  useEffect(() => {
+    fetchUserProfile()
+  }, [])
 
   return (
     <>

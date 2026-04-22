@@ -25,3 +25,16 @@ export const getMessages = async (chatId) => {
         throw new Error(error.response?.data?.message || error.message)
     }
 }
+
+export const postMessage = async (message, chatId = undefined) => {
+    try {
+        const url = `/chat${chatId ? `/${chatId}`: ''}`
+        const res = await axioInstance.post(url, {message})
+        if(!res.data.success)
+            throw new Error(res.data.message)
+
+        return res.data.data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || error.message)
+    }
+}

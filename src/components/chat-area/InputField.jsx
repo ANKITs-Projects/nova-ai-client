@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { IoSend } from "react-icons/io5";
 
-export default function InputField() {
+export default function InputField({setChatMessage = null, setSendMessage = null}) {
   const [value, setValue] = useState("");
   const [isTextarea, setIsTextarea] = useState(false);
 
@@ -13,6 +13,14 @@ export default function InputField() {
   const lockRef = useRef(false);
 
   const MAX_HEIGHT = 140;
+
+
+  const handleSend = () => {
+    
+    setChatMessage(value)
+    setValue("")
+    setSendMessage(true)
+  }
 
   // 🔥 Resize textarea
   const resizeTextarea = (el) => {
@@ -154,7 +162,7 @@ export default function InputField() {
           />
         )}
 
-        <div className="text-2xl absolute bottom-2.5 right-2.5">
+        <div className="text-2xl absolute bottom-2.5 right-2.5" onClick={handleSend}>
           <IoSend />
         </div>
       </div>

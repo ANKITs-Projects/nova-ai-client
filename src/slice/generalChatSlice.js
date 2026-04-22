@@ -15,7 +15,7 @@ const generalChatSlice = createSlice({
             state.chats = action.payload
         },
         pushChats: (state, action) => {
-            state.chats = [...state.chats, ...action.payload]
+            state.chats = [action.payload, ...state.chats]
         },
         setChatLoading: (state, action) => {
             state.loading = action.payload

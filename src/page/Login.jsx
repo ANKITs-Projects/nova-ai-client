@@ -11,16 +11,17 @@ const Login = () => {
   const [loading, setlading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const fetchUserProfile = useAuth()
+
+
     const loginForm = async (data) => {
       setlading(true)
       try {
         const res = await loginUser(data)
         if(res.data.success){
           toast.success(res.data.message)
-
-          const profile = await getUserProfile()
           
-          dispatch(setUser(profile.data.user))
+          fetchUserProfile()
           
           navigate("/")
         }

@@ -11,10 +11,14 @@ const useGetAllChat = () => {
     const fetchAllChat = async () => {
         dispatch(setChatLoading(true))
         dispatch(setProjectLoading(true))
+        dispatch(setChats([]))
+        dispatch(setProjectDetail(null))
         try {
             const chat = await getAllChat() 
             dispatch(setChats(chat.chats))
             dispatch(setProjectDetail(chat.detail))
+            dispatch(setChatError(null))
+            dispatch(setProjectError(null))
         } catch (error) {
             dispatch(setChatError(error.message))
             dispatch(setProjectError(error.message))

@@ -6,8 +6,7 @@ import { getUserProfile } from "../api/auth.api";
 const useAuth = () => {
     const dispatch = useDispatch();
 
-  useEffect(() => {
-    const initAuth = async () => {
+    const fetchUserProfile = async () => {
       dispatch(setLoading(true));
       try {
         const res = await getUserProfile();
@@ -18,10 +17,9 @@ const useAuth = () => {
       } finally {
         dispatch(setLoading(false));
       }
-    };
+    }
 
-    initAuth();
-  }, []);
+  return fetchUserProfile
 };
 
 export default useAuth
