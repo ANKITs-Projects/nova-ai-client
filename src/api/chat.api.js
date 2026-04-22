@@ -26,9 +26,18 @@ export const getMessages = async (chatId) => {
     }
 }
 
-export const postMessage = async (message, chatId = undefined) => {
+export const postMessage = async (message, chatId = undefined, projectId = undefined) => {
     try {
-        const url = `/chat${chatId ? `/${chatId}`: ''}`
+        let url;
+        if(chatId){
+            url = `/chat/${chatId}`
+        }
+        else if(projectId){
+            url = `/project/${projectId}`
+        }
+        else{
+            url = `/chat`
+        }
         const res = await axioInstance.post(url, {message})
         if(!res.data.success)
             throw new Error(res.data.message)

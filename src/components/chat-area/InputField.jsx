@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { IoSend } from "react-icons/io5";
 
-export default function InputField({setChatMessage = null, setSendMessage = null}) {
+export default function InputField({setChatMessage , setIsSendMessage }) {
   const [value, setValue] = useState("");
   const [isTextarea, setIsTextarea] = useState(false);
 
@@ -16,10 +16,10 @@ export default function InputField({setChatMessage = null, setSendMessage = null
 
 
   const handleSend = () => {
-    
+    if(!value) return
     setChatMessage(value)
     setValue("")
-    setSendMessage(true)
+    setIsSendMessage(true)
   }
 
   // 🔥 Resize textarea
@@ -38,7 +38,7 @@ export default function InputField({setChatMessage = null, setSendMessage = null
     // const textWidth = measureRef.current.offsetWidth;
     const textWidth = value.length * 14
     const inputWidth = inputRef.current.clientWidth;
-    console.log(textWidth, inputWidth)
+    
     return textWidth <= inputWidth - 8; // buffer
   };
 

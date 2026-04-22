@@ -4,9 +4,9 @@ import InputField from "./chat-area/InputField";
 import { UseGetMessagesByChatId } from "../hooks/useGetMessages";
 import useGetAllProjects from "../hooks/useGetAllProjects";
 import useGetAllProjectChat from "../hooks/useGetAllProjectsChat";
-import Chats from "./chat-area/chats";
+import Chats from "./chat-area/Chats";
 import Projects from "./chat-area/Projects";
-import useSendGeneralChatMessage from "../hooks/useSendGeneralMessage";
+import useSendMessage from "../hooks/useSendMessage";
 import { useDispatch } from "react-redux";
 import { pushChats } from "../slice/generalChatSlice";
 import { toast } from "react-toastify";
@@ -15,10 +15,10 @@ import { setMessages } from "../slice/messageSlice";
 const ChatArea = () => {
   const fetchMessages = UseGetMessagesByChatId();
   const fetchAllProjectsChat = useGetAllProjectChat();
-  const sendGeneralChatMessage = useSendGeneralChatMessage();
+  const sendMessage = useSendMessage();
 
   const [chatMessage, setChatMessage] = useState("")
-  const [sendMessage, setSendMessage] = useState(false)
+  const [isSendMessage, setIsSendMessage] = useState(false)
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -63,17 +63,17 @@ const ChatArea = () => {
 
   useEffect(() => {
   const handleSend = async () => {
-    if (!sendMessage) return;
+    if (!isSendMessage) return;
 
     if (chatMessage.length === 0) {
       toast.warn("Message must not empty!");
-      setSendMessage(false);
+      setIsSendMessage(false);
       return;
     }
 
     try {
       dispatch(setMessages([]))
-      const chatDetail = await sendGeneralChatMessage(chatMessage);
+      const chatDetail = await sendMessage(chatMessage);
       if (chatDetail) {
         dispatch(pushChats(chatDetail));
         navigate(`/c/${chatDetail._id}`);
@@ -81,14 +81,15 @@ const ChatArea = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setSendMessage(false);
+      setIsSendMessage(false);
     }
   };
 
   handleSend();
-}, [sendMessage]);
+}, [isSendMessage]);
 
-  if (isChat || isProjectChat || sendMessage) {
+  if (isChat || isProjectChat || isSendMessage) {
+    
     return (
       <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
         <Chats />
@@ -118,7 +119,7 @@ const ChatArea = () => {
       <div className="text-3xl ">
         <h1>What are you working on?</h1>
       </div>
-      <InputField setChatMessage = {setChatMessage} setSendMessage = {setSendMessage}/>
+      <InputField setChatMessage = {setChatMessage} setIsSendMessage = {setIsSendMessage}/>
     </div>
   );
 };

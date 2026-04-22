@@ -1,10 +1,44 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import InputField from "./InputField";
+import { toast } from "react-toastify";
+import useSendMessage from "../../hooks/useSendMessage";
+import { useLocation } from "react-router-dom";
 
 const Chats = () => {
   const { loading, error, messages } = useSelector((store) => store.message);
+  const sendMessage = useSendMessage();
+  
+  const location = useLocation()
+
+  const [chatMessage, setChatMessage] = useState("")
+  const [isSendMessage, setIsSendMessage] = useState(false)
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const handleSend = async () => {
+      if(!isSendMessage) return;
+
+      if(chatMessage.length === 0 ){
+        toast.warn("Message must not empty!")
+        setIsSendMessage(false)
+        return
+      }
+
+      try {
+        const path = location.pathname.split("/");
+        const chatid = path[path.length - 1]
+        const res = await sendMessage(chatMessage, chatid)
+      } catch (error) {
+        console.log(error)
+      } finally{
+        setIsSendMessage(false)
+      }
+    }
+
+    handleSend()
+
+  }, [isSendMessage]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,10 +67,25 @@ const Chats = () => {
               </div>
             );
           })}
+
+          {
+            loading && (
+            <div className="w-full flex justify-start">
+            <div className="loader" ></div>
+            </div>
+            )
+          }
+          {
+            error && (
+            <div className="w-full flex justify-start">
+            <div className="" >{error}</div>
+            </div>
+            )
+          }
         <div ref={bottomRef}></div>
       </div>
       <div className="w-full">
-        <InputField />
+        <InputField setChatMessage = {setChatMessage} setIsSendMessage = {setIsSendMessage}/>
       </div>
     </div>
   );

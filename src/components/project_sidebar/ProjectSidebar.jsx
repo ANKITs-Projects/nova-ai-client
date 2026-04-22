@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 const ProjectSidebar = () => {
   const [showProject, setShowProject] = useState(true);
   const { loading, error, projects } = useSelector((store) => store.project);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleProjectClick =  (projectId) => {
+  const handleProjectClick = (projectId) => {
     navigate(`/p/${projectId}`);
-  }
+  };
 
   return (
     <div className="w-full h-full p-1 rounded-xl flex flex-col items-center overflow-hidden">
@@ -41,12 +41,16 @@ const ProjectSidebar = () => {
             {projects.length > 0 &&
               projects.map((ele) => {
                 return (
-                  <div className="w-full flex justify-between items-center" key={ele._id} onClick={() => handleProjectClick(ele._id)}>
+                  <div
+                    className="w-full flex justify-between items-center"
+                    key={ele._id}
+                    onClick={() => handleProjectClick(ele._id)}
+                  >
                     <button className="w-full p-1.5 text-sm font-light rounded-xl flex items-center gap-1 cursor-pointer hover:bg-(--bgHover)">
                       <span className="text-lg font-bold mr-1">
                         <LuFolderClosed />
                       </span>
-                      {ele.name}
+                      <span className="truncate">{ele.name}</span>
                     </button>
                   </div>
                 );
