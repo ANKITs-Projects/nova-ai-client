@@ -31,7 +31,7 @@ const GeneralChatSidebar = () => {
       {showGeneratChats && (
         <div className="w-full max-h-full overflow-auto scrollbar-hover">
           {loading && <div className="loader p-1.5"></div>}
-          {error && <div>{error}</div>}
+          {error && <div className="p-1 text-xs font-extralight text-zinc-300">{error}</div>}
           {chats.length > 0 &&
             chats.map((ele, i) => {
               return (

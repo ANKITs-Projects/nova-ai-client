@@ -19,6 +19,8 @@ const ChatArea = () => {
 
   const [chatMessage, setChatMessage] = useState("")
   const [isSendMessage, setIsSendMessage] = useState(false)
+  const [isSendProjectMessage, setIsSendProjectMessage] = useState(false)
+  
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -88,7 +90,7 @@ const ChatArea = () => {
   handleSend();
 }, [isSendMessage]);
 
-  if (isChat || isProjectChat || isSendMessage) {
+  if (isChat || isProjectChat || isSendMessage || isSendProjectMessage) {
     
     return (
       <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
@@ -108,7 +110,7 @@ const ChatArea = () => {
   if (isProject) {
     return (
       <div className="w-full h-screen flex flex-col gap-4 overflow-hidden">
-        <Projects />
+        <Projects setIsSendProjectMessage={setIsSendProjectMessage}/>
       </div>
     );
   }

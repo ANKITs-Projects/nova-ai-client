@@ -14,7 +14,7 @@ const projectSlice = createSlice({
             state.projects = action.payload
         },
         pushProjects: (state, action) => {
-            state.projects = [...action.payload, ...state.projects]
+            state.projects = [action.payload, ...state.projects]
         },
         setProjectLoading: (state, action) => {
             state.loading = action.payload

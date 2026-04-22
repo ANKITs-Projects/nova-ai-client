@@ -162,7 +162,7 @@ export default function InputField({setChatMessage , setIsSendMessage }) {
           />
         )}
 
-        <div className="text-2xl absolute bottom-2.5 right-2.5" onClick={handleSend}>
+        <div className="text-xl absolute bottom-2 right-2.5 p-1 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300 ease-out hover:bg-zinc-200 hover:text-zinc-800" onClick={handleSend}>
           <IoSend />
         </div>
       </div>

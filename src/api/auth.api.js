@@ -11,3 +11,7 @@ export const signUpUser = async (body) => {
 export const loginUser = async (body) => {
     return await axioInstance.post("/auth/login", body)
 }
+
+export const logoutUser = async () => {
+    return await axioInstance.get("/auth/logout")
+}

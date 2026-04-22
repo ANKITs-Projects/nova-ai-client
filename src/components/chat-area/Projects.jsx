@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import { formattedDate } from "../../utils/formateDate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import useSendMessage from "../../hooks/useSendMessage";
+import { setMessages } from "../../slice/messageSlice";
+import { pushChats } from "../../slice/generalChatSlice";
 
-const Projects = () => {
+const Projects = ({setIsSendProjectMessage}) => {
   const { loading, error, projectschat } = useSelector(
     (store) => store.projectChats,
   );
@@ -14,6 +17,12 @@ const Projects = () => {
     detail: projectDetail,
   } = useSelector((state) => state.chatProjectDetail);
 
+  const [chatMessage, setChatMessage] = useState("")
+  const [isSendMessage, setIsSendMessage] = useState(false)
+
+  const sendMessage = useSendMessage();
+  
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,6 +30,38 @@ const Projects = () => {
     const path = location.pathname + `/c/${chatId}`
     navigate(path)
   }
+
+
+  useEffect(() => {
+    const handleSend = async () => {
+        if (!isSendMessage) return;
+    
+        if (chatMessage.length === 0) {
+          toast.warn("Message must not empty!");
+          setIsSendMessage(false);
+          return;
+        }
+        
+        try {
+          dispatch(setMessages([]))
+          setIsSendProjectMessage(true)
+          const path = location.pathname.split("/");
+          const projectId = path[path.length - 1]
+          const chatDetail = await sendMessage(chatMessage, null, projectId);
+          if (chatDetail) {
+            dispatch(pushChats(chatDetail));
+            navigate(`/p/${projectId}/c/${chatDetail._id}`);
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsSendMessage(false);
+          setIsSendProjectMessage(false)
+        }
+      };
+    
+      handleSend();
+  }, [isSendMessage])
 
   return (
     <div className="w-full h-screen overflow-hidden">
@@ -43,7 +84,7 @@ const Projects = () => {
             )}
           </div>
           <div className="w-full absolute bottom-0">
-            <InputField />
+            <InputField setChatMessage = {setChatMessage} setIsSendMessage = {setIsSendMessage} />
           </div>
         </div>
         <div className="w-full h-auto flex flex-col gap-2 overflow-auto noscrollbar">
