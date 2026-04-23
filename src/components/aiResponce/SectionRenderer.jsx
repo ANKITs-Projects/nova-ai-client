@@ -10,7 +10,7 @@ export default function SectionRenderer({ section }) {
       {type === "code" && (
         <div className="flex flex-col gap-2">
           <h2 className="text-lg font-medium">{heading}</h2>
-          <p className="text-sm text-gray-600">{description}</p>
+          <p className="text-sm text-zinc-300">{description}</p>
           <CodeBlock code={content} language={language} />
         </div>
       )}
