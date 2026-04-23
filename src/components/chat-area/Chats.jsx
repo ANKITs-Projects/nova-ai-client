@@ -4,6 +4,8 @@ import InputField from "./InputField";
 import { toast } from "react-toastify";
 import useSendMessage from "../../hooks/useSendMessage";
 import { useLocation } from "react-router-dom";
+import Markdown from "react-markdown";
+import AIResponse from "../aiResponce/AIResponse";
 
 const Chats = () => {
   const { loading, error, messages } = useSelector((store) => store.message);
@@ -54,13 +56,17 @@ const Chats = () => {
                 <div className="w-full h-auto flex">
                   {chat.sender === "user" ? (
                     <div className="w-full flex justify-end">
-                      <p className="inline-block p-2 bg-(--bgHover) rounded-r-2xl rounded-b-2xl">
+                      <p className="max-w-[40%] inline-block p-2 bg-(--bgHover) rounded-r-2xl rounded-b-2xl">
                         {chat.content}
                       </p>
                     </div>
                   ) : (
                     <div className="w-full flex justify-start">
-                      <p className="">{chat.content}</p>
+                      {/* <Markdown>{chat.content}</Markdown> */}
+                      {/* <p className="">{chat.content}</p> */}
+                      <div className="max-w-[90%]">
+                      <AIResponse data ={chat.content}/>
+                      </div>
                     </div>
                   )}
                 </div>
